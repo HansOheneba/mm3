@@ -30,17 +30,17 @@ const Header = () => {
 
   return (
     <>
-      <div className="pt-20"></div>
+      <div className="pt-10"></div>
       <header className="fixed w-full z-50 top-0 left-0 bg-black/10 backdrop-blur-md transition-all duration-300">
-        <nav className="max-w-6xl mx-auto px-6 py-3 flex items-center gap-5">
+        <nav className="max-w-6xl mx-auto px-6 py-2 flex items-center gap-5">
           {/* Logo for mobile */}
           <div className="flex md:hidden justify-center">
             <Link href="/" className="flex-shrink-0">
               <Image
                 src="/assets/808green.png"
                 alt="Logo"
-                width={60}
-                height={30}
+                width={20}
+                height={10}
                 priority
                 className="object-contain"
               />
