@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 
 const NAV_LINKS = [
@@ -87,13 +88,11 @@ const Header = () => {
 
                 <div className="mt-6 flex flex-col space-y-4">
                   {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={linkClasses(link.href)}
-                    >
-                      {link.label}
-                    </Link>
+                    <SheetClose asChild key={link.href}>
+                      <Link href={link.href} className={linkClasses(link.href)}>
+                        {link.label}
+                      </Link>
+                    </SheetClose>
                   ))}
                 </div>
               </SheetContent>
