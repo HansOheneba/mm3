@@ -101,7 +101,7 @@ export default function WaitlistForm() {
         </form>
 
         <p className="text-xs text-gray-500 italic">
-          Only the brave survive the night. Don’t say we didn’t warn you.
+          Not everyone gets in. But you… you’re not everyone.
         </p>
       </div>
     </div>
