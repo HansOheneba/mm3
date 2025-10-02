@@ -46,7 +46,7 @@ export default function WaitlistForm() {
         <form onSubmit={handleSubmit} className="space-y-4 text-left">
           {success ? (
             <p className="text-green-400 text-center font-semibold">
-              You’re officially on the waitlist! 🕷️ We’ll haunt your inbox soon…
+              The madness claims another. Watch your inbox.
             </p>
           ) : (
             <>
