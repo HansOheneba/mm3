@@ -3,8 +3,8 @@ export default function TicketsPage() {
   return (
     <div className="min-h-screen bg-black text-gray-200 flex flex-col items-center justify-center px-6 py-16 relative overflow-hidden">
       {/* Background glow orbs */}
-      <div className="absolute -top-32 -left-32 w-96 h-96 bg-lime-500/20 rounded-full blur-[120px] animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] animate-pulse delay-1000"></div>
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-lime-500/20 rounded-full blur-[120px] animate-pulse -z-50"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] animate-pulse delay-1000 -z-50"></div>
 
       {/* Title */}
       <h1 className="text-5xl md:text-6xl font-extrabold text-lime-500 drop-shadow-[0_0_25px_rgba(163,230,53,0.9)] uppercase tracking-wider text-center">
