@@ -1,10 +1,20 @@
 "use client";
 import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function WaitlistForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,9 +31,12 @@ export default function WaitlistForm() {
 
     try {
       // TODO: connect Flask API
-      // await fetch("http://localhost:5000/waitlist", { method: "POST", body: JSON.stringify(values) });
-
+      // await fetch("http://localhost:5000/waitlist", {
+      //   method: "POST",
+      //   body: JSON.stringify(values)
+      // });
       setSuccess(true);
+      setOpen(true); // open modal
     } catch {
       setError("TRANSMISSION FAILURE. TRY AGAIN.");
     } finally {
@@ -44,12 +57,7 @@ export default function WaitlistForm() {
           </p>
         </div>
 
-        {/* success / error state */}
-        {success ? (
-          <p className="text-lime-400 text-center font-semibold uppercase tracking-widest">
-            THE MADNESS CLAIMS ANOTHER. STANDBY FOR FURTHER INSTRUCTIONS.
-          </p>
-        ) : (
+        {!success ? (
           <form onSubmit={handleSubmit} className="space-y-4 text-sm">
             <div className="flex flex-col">
               <label className="text-gray-400 uppercase mb-1">Name</label>
@@ -61,7 +69,6 @@ export default function WaitlistForm() {
                 className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
             </div>
-
             <div className="flex flex-col">
               <label className="text-gray-400 uppercase mb-1">Email</label>
               <input
@@ -72,7 +79,6 @@ export default function WaitlistForm() {
                 className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
             </div>
-
             <div className="flex flex-col">
               <label className="text-gray-400 uppercase mb-1">Phone</label>
               <input
@@ -82,7 +88,6 @@ export default function WaitlistForm() {
                 className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
             </div>
-
             <div className="flex flex-col">
               <label className="text-gray-400 uppercase mb-1">
                 Referral Source
@@ -102,7 +107,6 @@ export default function WaitlistForm() {
                 <option value="other">Unknown Source</option>
               </select>
             </div>
-
             <button
               type="submit"
               disabled={loading}
@@ -111,7 +115,7 @@ export default function WaitlistForm() {
               {loading ? "Processing…" : "Join the Waitlist"}
             </button>
           </form>
-        )}
+        ) : null}
 
         {error && (
           <p className="text-lime-300 text-center text-xs mt-2">{error}</p>
@@ -122,6 +126,34 @@ export default function WaitlistForm() {
           Warning: The gates close at midnight. Don’t be late.
         </p>
       </div>
+
+      {/* spooky modal */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="bg-black text-lime-400 border border-lime-700 shadow-[0_0_30px_rgba(163,230,53,0.7)] font-mono max-w-md">
+          <DialogHeader>
+            <DialogTitle className="uppercase tracking-widest text-center py-5">
+              ███ ACCESS GRANTED ███
+            </DialogTitle>
+            {/* keep description simple, no nested divs */}
+            <DialogDescription className="text-center text-gray-300 text-sm">
+              THE MADNESS CLAIMS ANOTHER. <br />
+              Standby for further instructions.
+            </DialogDescription>
+            {/* spooky extra line as a separate element, not inside DialogDescription */}
+            <p className="text-lime-400 font-semibold tracking-wide animate-pulse text-center text-sm mt-2">
+              You are not alone. Others are already waiting in the dark…
+            </p>
+          </DialogHeader>
+
+          <div className="flex justify-center mt-4">
+          <Link href={"/"} passHref>
+              <Button className="bg-lime-500 text-black px-4 py-2 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase">
+                Acknowledged, Take me home
+              </Button>
+            </Link>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
