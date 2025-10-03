@@ -108,7 +108,7 @@ export default function WaitlistForm() {
               disabled={loading}
               className="w-full bg-lime-500 text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase"
             >
-              {loading ? "Processing…" : "Submit File"}
+              {loading ? "Processing…" : "Join the Waitlist"}
             </button>
           </form>
         )}
