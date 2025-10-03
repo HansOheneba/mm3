@@ -36,8 +36,8 @@ export default function WaitlistForm() {
       <div className="max-w-md w-full space-y-6 border border-lime-700 bg-gray-950/80 p-6 rounded-md shadow-[0_0_25px_rgba(163,230,53,0.6)] font-mono">
         {/* eerie classified heading */}
         <div className="border-b border-lime-700 pb-2">
-          <h1 className="text-xl font-bold tracking-widest uppercase drop-shadow-[0_0_10px_rgba(163,230,53,0.9)]">
-            ███ Early Access ███
+          <h1 className="text-xl font-bold tracking-widest uppercase drop-shadow-[0_0_10px_rgba(163,230,53,0.9)] flex items-center justify-center">
+            ██ Early Access ██
           </h1>
           <p className="text-xs text-gray-400 mt-1">
             File: <span className="text-lime-400">MIDNIGHT-MADNESS-III</span>
