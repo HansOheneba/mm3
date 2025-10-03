@@ -38,10 +38,10 @@ const Header = () => {
           <div className="flex md:hidden justify-center">
             <Link href="/" className="flex-shrink-0">
               <Image
-                src="/assets/808green.png"
+                src="/assets/logo.png"
                 alt="Logo"
-                width={20}
-                height={10}
+                width={40}
+                height={40}
                 priority
                 className="object-contain"
               />
@@ -52,7 +52,7 @@ const Header = () => {
           <div className="hidden md:flex w-full items-center justify-between">
             <Link href="/" className="flex-shrink-0">
               <Image
-                src="/assets/808green.png"
+                src="/assets/logo.png"
                 alt="Logo"
                 width={60}
                 height={30}
