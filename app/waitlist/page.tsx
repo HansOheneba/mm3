@@ -119,7 +119,7 @@ export default function WaitlistForm() {
 
         {/* eerie footer note */}
         <p className="text-xs text-gray-500 italic border-t border-lime-700 pt-2">
-          Warning: Unauthorized access will not go unpunished.
+          Warning: The gates close at midnight. Don’t be late.
         </p>
       </div>
     </div>
