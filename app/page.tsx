@@ -79,7 +79,7 @@ const Mm3 = () => {
         </p>
         <Link
           href="/waitlist"
-          className="inline-block bg-lime-500 text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-lime-400 transition-all tracking-wide"
+          className="inline-block bg-lime-500 text-black font-semibold px-5 py-2 rounded-md shadow-md hover:bg-lime-400 transition-all tracking-wide"
         >
           Request Access — Join Waitlist
         </Link>
