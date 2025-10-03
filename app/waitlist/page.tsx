@@ -20,88 +20,106 @@ export default function WaitlistForm() {
     };
 
     try {
-      // TODO: send to Flask API
+      // TODO: connect Flask API
       // await fetch("http://localhost:5000/waitlist", { method: "POST", body: JSON.stringify(values) });
 
       setSuccess(true);
     } catch {
-      setError("Something spooky went wrong. Try again?");
+      setError("TRANSMISSION FAILURE. TRY AGAIN.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center bg-black text-white px-6">
-      <div className="max-w-md w-full space-y-6 text-center">
-        {/* spooky heading */}
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide text-lime-400 drop-shadow-[0_0_20px_rgba(163,230,53,0.9)]">
-          Midnight Madness III
-        </h1>
-        <p className="text-lg text-gray-400">
-          Ghana’s wildest Halloween rave. <br />
-          Enter the list before the gates lock.
-        </p>
+    <div className="min-h-[90vh] flex items-center justify-center bg-black text-lime-400 px-6">
+      <div className="max-w-md w-full space-y-6 border border-lime-700 bg-gray-950/80 p-6 rounded-md shadow-[0_0_25px_rgba(163,230,53,0.6)] font-mono">
+        {/* eerie classified heading */}
+        <div className="border-b border-lime-700 pb-2">
+          <h1 className="text-xl font-bold tracking-widest uppercase drop-shadow-[0_0_10px_rgba(163,230,53,0.9)]">
+            ███ Restricted Access ███
+          </h1>
+          <p className="text-xs text-gray-400 mt-1">
+            File: <span className="text-lime-400">MIDNIGHT-MADNESS-III</span>
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 text-left">
-          {success ? (
-            <p className="text-green-400 text-center font-semibold">
-              The madness claims another. Watch your inbox.
-            </p>
-          ) : (
-            <>
+        {/* success / error state */}
+        {success ? (
+          <p className="text-lime-400 text-center font-semibold uppercase tracking-widest">
+            THE MADNESS CLAIMS ANOTHER. STANDBY FOR FURTHER INSTRUCTIONS.
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4 text-sm">
+            <div className="flex flex-col">
+              <label className="text-gray-400 uppercase mb-1">Name</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Full Name (who’s stepping into the madness?)"
                 required
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 placeholder-gray-500 focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                placeholder="███████████████"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
+            </div>
 
+            <div className="flex flex-col">
+              <label className="text-gray-400 uppercase mb-1">Email</label>
               <input
                 type="email"
                 name="email"
-                placeholder="Email (where the madness finds you)"
                 required
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 placeholder-gray-500 focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                placeholder="███████████████@███.███"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
+            </div>
 
+            <div className="flex flex-col">
+              <label className="text-gray-400 uppercase mb-1">Phone</label>
               <input
                 type="tel"
                 name="phone"
-                placeholder="Phone (for last-minute whispers)"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 placeholder-gray-500 focus:ring-2 focus:ring-lime-500 focus:border-lime-500"
+                placeholder="+233 ███ ███ ███"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
               />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="text-gray-400 uppercase mb-1">
+                Referral Source
+              </label>
               <select
                 name="referral"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-gray-200 focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
+                className="w-full bg-black border border-lime-700 rounded p-2 text-gray-200 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
                 defaultValue=""
               >
                 <option value="" disabled>
-                  Who led you into the dark?
+                  -- CLASSIFIED --
                 </option>
-                <option value="friend">A friend whispered… 👥</option>
-                <option value="instagram">Saw it on Instagram 📱</option>
-                <option value="tiktok">TikTok made me do it 🎥</option>
-                <option value="poster">A shadowy poster on the wall 🕷️</option>
-                <option value="other">Other (from the void)… 🌑</option>
+                <option value="friend">[REDACTED CONTACT]</option>
+                <option value="instagram">Intercepted Signal: IG</option>
+                <option value="tiktok">Intercepted Signal: TikTok</option>
+                <option value="poster">Field Poster</option>
+                <option value="other">Unknown Source</option>
               </select>
+            </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-purple-600 text-white px-4 py-3 rounded-lg font-bold shadow-lg hover:bg-purple-700 transition-all"
-              >
-                {loading ? "Casting spell..." : "Join the Waitlist"}
-              </button>
-            </>
-          )}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-lime-500 text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase"
+            >
+              {loading ? "Processing…" : "Submit File"}
+            </button>
+          </form>
+        )}
 
-          {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-        </form>
+        {error && (
+          <p className="text-lime-300 text-center text-xs mt-2">{error}</p>
+        )}
 
-        <p className="text-xs text-gray-500 italic">
-          Not everyone gets in. But you… you’re not everyone.
+        {/* eerie footer note */}
+        <p className="text-xs text-gray-500 italic border-t border-lime-700 pt-2">
+          Warning: Unauthorized access will not go unpunished.
         </p>
       </div>
     </div>
