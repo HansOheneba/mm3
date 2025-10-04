@@ -30,7 +30,7 @@ const Mm3 = () => {
   }
 
   return (
-    <main className="w-full max-w-4xl mx-auto px-6 py-16 text-white">
+    <main className="w-full max-w-4xl mx-auto px-6 py-16 text-white animate-fade animate-once animate-duration-[800ms] animate-ease-out">
       {/* Heading */}
       <h1 className="text-4xl font-extrabold text-lime-500 tracking-widest mb-12">
         MIDNIGHT MADNESS // FILE 003

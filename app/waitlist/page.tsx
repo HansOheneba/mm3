@@ -137,8 +137,9 @@ export default function WaitlistForm() {
                 <option value="" disabled>
                   -- CLASSIFIED --
                 </option>
-                <option value="friend">[REDACTED CONTACT]</option>
+                <option value="friend">[Classified Referral]</option>
                 <option value="instagram">Intercepted Signal: IG</option>
+                <option value="snapchat">Intercepted Signal: Snapchat</option>
                 <option value="tiktok">Intercepted Signal: TikTok</option>
                 <option value="poster">Field Poster</option>
                 <option value="other">Unknown Source</option>
