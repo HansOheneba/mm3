@@ -59,7 +59,7 @@ const Mm3 = () => {
             Entry Protocol
           </h2>
           <p className="text-lg font-mono text-gray-200">
-            Restricted Access — Verification Required
+            Restricted Access — Ticket Required
           </p>
         </div>
 
