@@ -49,7 +49,9 @@ const Mm3 = () => {
           <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
             Date
           </h2>
-          <p className="text-lg font-mono text-gray-200">[CLASSIFIED]</p>
+          <p className="text-lg font-mono text-lime-400 tracking-[0.25em]">
+            31 // OCT // 2025
+          </p>
         </div>
 
         <div>
