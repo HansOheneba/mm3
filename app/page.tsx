@@ -1,10 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Mm3 = () => {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redirect immediately when component mounts
+    window.location.href = "https://midnight-madness.808dtp.com/";
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
