@@ -82,7 +82,7 @@ export default function WaitlistForm() {
   }
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center bg-black text-lime-400 px-6">
+    <div className="min-h-[90vh] flex items-center justify-center bg-black text-[#00ff00] px-6">
       <div className="max-w-md w-full space-y-6 border border-lime-700 bg-gray-950/80 p-6 rounded-md shadow-[0_0_25px_rgba(163,230,53,0.6)] font-mono">
         {/* eerie classified heading */}
         <div className="border-b border-lime-700 pb-2">
@@ -90,7 +90,7 @@ export default function WaitlistForm() {
             ██ Early Access ██
           </h1>
           <p className="text-xs text-gray-400 mt-1">
-            File: <span className="text-lime-400">MIDNIGHT-MADNESS-III</span>
+            File: <span className="text-[#00ff00]">MIDNIGHT-MADNESS-III</span>
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export default function WaitlistForm() {
                 name="name"
                 required
                 placeholder="███████████████"
-                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-[#00ff00] focus:border-[#00ff00]"
               />
             </div>
             <div className="flex flex-col">
@@ -113,7 +113,7 @@ export default function WaitlistForm() {
                 name="email"
                 required
                 placeholder="███████████████@███.███"
-                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-[#00ff00] focus:border-[#00ff00]"
               />
             </div>
             <div className="flex flex-col">
@@ -122,7 +122,7 @@ export default function WaitlistForm() {
                 type="tel"
                 name="phone"
                 placeholder="+233 ███ ███ ███"
-                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
+                className="w-full bg-black border border-lime-700 rounded p-2 placeholder-gray-600 focus:ring-1 focus:ring-[#00ff00] focus:border-[#00ff00]"
               />
             </div>
             <div className="flex flex-col">
@@ -131,7 +131,7 @@ export default function WaitlistForm() {
               </label>
               <select
                 name="referral"
-                className="w-full bg-black border border-lime-700 rounded p-2 text-gray-200 focus:ring-1 focus:ring-lime-400 focus:border-lime-400"
+                className="w-full bg-black border border-lime-700 rounded p-2 text-gray-200 focus:ring-1 focus:ring-[#00ff00] focus:border-[#00ff00]"
                 defaultValue=""
               >
                 <option value="" disabled>
@@ -148,7 +148,7 @@ export default function WaitlistForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#00ff00] text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase"
+              className="w-full bg-[#00ff00] text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-[#00ff00] transition-all uppercase"
             >
               {loading ? "Processing…" : "Join the Waitlist"}
             </button>
@@ -167,7 +167,7 @@ export default function WaitlistForm() {
 
       {/* spooky modal */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="bg-black text-lime-400 border border-lime-700 shadow-[0_0_30px_rgba(163,230,53,0.7)] font-mono max-w-md">
+        <DialogContent className="bg-black text-[#00ff00] border border-lime-700 shadow-[0_0_30px_rgba(163,230,53,0.7)] font-mono max-w-md">
           <DialogHeader>
             <DialogTitle className="uppercase tracking-widest text-center py-5">
               ███ ACCESS GRANTED ███
@@ -176,14 +176,14 @@ export default function WaitlistForm() {
               THE MADNESS CLAIMS ANOTHER. <br />
               Standby for further instructions.
             </DialogDescription>
-            <p className="text-lime-400 font-semibold tracking-wide animate-pulse text-center text-sm mt-2">
+            <p className="text-[#00ff00] font-semibold tracking-wide animate-pulse text-center text-sm mt-2">
               You are not alone. Others are already waiting in the dark…
             </p>
           </DialogHeader>
 
           <div className="flex justify-center mt-4">
             <Link href={"/"} passHref>
-              <Button className="bg-[#00ff00] text-black px-4 py-2 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase">
+              <Button className="bg-[#00ff00] text-black px-4 py-2 rounded font-bold tracking-widest shadow hover:bg-[#00ff00] transition-all uppercase">
                 Acknowledged, Take me home
               </Button>
             </Link>

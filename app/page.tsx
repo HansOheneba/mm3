@@ -49,7 +49,7 @@ const Mm3 = () => {
           <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
             Date
           </h2>
-          <p className="text-lg font-mono text-lime-400 tracking-[0.25em]">
+          <p className="text-lg font-mono text-[#00ff00] tracking-[0.25em]">
             31 // OCT // 2025
           </p>
         </div>
@@ -81,7 +81,7 @@ const Mm3 = () => {
         </p>
         <Link
           href="/waitlist"
-          className="inline-block bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-lime-400 transition-all tracking-wide"
+          className="inline-block bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-[#00ff00] transition-all tracking-wide"
         >
           Request Access — Join Waitlist
         </Link>

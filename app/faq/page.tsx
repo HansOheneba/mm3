@@ -23,7 +23,7 @@ const FAQ = () => {
           value="item-1"
           className="border border-[#00ff00]/40 rounded-lg bg-black/50 backdrop-blur-sm"
         >
-          <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
+          <AccordionTrigger className="px-4 text-[#00ff00] hover:text-lime-300">
             Who is organizing Midnight Madness?
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4 text-gray-300">
@@ -31,7 +31,7 @@ const FAQ = () => {
             <Link
               href="https://instagram.com/808dtp"
               target="_blank"
-              className="text-lime-400 hover:text-lime-300 underline"
+              className="text-[#00ff00] hover:text-lime-300 underline"
             >
               808DTP
             </Link>{" "}
@@ -44,12 +44,12 @@ const FAQ = () => {
           value="item-2"
           className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
-          <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
+          <AccordionTrigger className="px-4 text-[#00ff00] hover:text-lime-300">
             When and where is the event?
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4 text-gray-300">
             The operation commences on{" "}
-            <span className="text-lime-400 font-mono">October 31st, 2025</span>.
+            <span className="text-[#00ff00] font-mono">October 31st, 2025</span>.
             The exact location will only be revealed to confirmed guests via
             secure transmission.
           </AccordionContent>
@@ -59,14 +59,14 @@ const FAQ = () => {
           value="item-3"
           className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
-          <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
+          <AccordionTrigger className="px-4 text-[#00ff00] hover:text-lime-300">
             How do I get access?
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4 text-gray-300">
             Access is restricted. Request clearance by{" "}
             <Link
               href="/waitlist"
-              className="text-lime-400 hover:text-lime-300 underline"
+              className="text-[#00ff00] hover:text-lime-300 underline"
             >
               joining the official waitlist
             </Link>
@@ -78,12 +78,12 @@ const FAQ = () => {
           value="item-4"
           className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
-          <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
+          <AccordionTrigger className="px-4 text-[#00ff00] hover:text-lime-300">
             Is there an age requirement?
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4 text-gray-300">
             Yes. Midnight Madness is strictly{" "}
-            <span className="text-lime-400 font-bold">18+</span>. Valid ID will
+            <span className="text-[#00ff00] font-bold">18+</span>. Valid ID will
             be required at the entry checkpoint.
           </AccordionContent>
         </AccordionItem>
@@ -92,13 +92,13 @@ const FAQ = () => {
           value="item-5"
           className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
-          <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
+          <AccordionTrigger className="px-4 text-[#00ff00] hover:text-lime-300">
             What should I expect?
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4 text-gray-300">
             A classified experience blending music, art, and atmosphere. Expect
             the unexpected. Details remain on a{" "}
-            <span className="text-lime-400">need-to-know basis</span>.
+            <span className="text-[#00ff00]">need-to-know basis</span>.
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -108,7 +108,7 @@ const FAQ = () => {
         <p className="mb-4">Still have questions?</p>
         <Link
           href="tel:+233555301122"
-          className="text-lime-400 hover:text-lime-300 underline font-semibold"
+          className="text-[#00ff00] hover:text-lime-300 underline font-semibold"
         >
           Contact 808
         </Link>
@@ -117,7 +117,7 @@ const FAQ = () => {
           <Link
             href="https://instagram.com/808dtp"
             target="_blank"
-            className="text-lime-400 hover:text-lime-300 underline"
+            className="text-[#00ff00] hover:text-lime-300 underline"
           >
             Instagram
           </Link>{" "}
@@ -125,7 +125,7 @@ const FAQ = () => {
           <Link
             href="https://x.com/808dtp"
             target="_blank"
-            className="text-lime-400 hover:text-lime-300 underline"
+            className="text-[#00ff00] hover:text-lime-300 underline"
           >
             Twitter/X
           </Link>{" "}
@@ -133,7 +133,7 @@ const FAQ = () => {
           <Link
             href="https://tiktok.com/@808dtp"
             target="_blank"
-            className="text-lime-400 hover:text-lime-300 underline"
+            className="text-[#00ff00] hover:text-lime-300 underline"
           >
             TikTok
           </Link>
