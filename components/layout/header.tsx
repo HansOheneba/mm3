@@ -26,8 +26,8 @@ const Header = () => {
 
   const linkClasses = (path: string) =>
     pathname === path
-      ? "font-bold text-lime-500 uppercase underline"
-      : "text-lime-500 hover:text-lime-700 font-medium uppercase";
+      ? "font-bold text-[#00ff00] uppercase underline"
+      : "text-[#00ff00] hover:text-lime-700 font-medium uppercase";
 
   return (
     <>

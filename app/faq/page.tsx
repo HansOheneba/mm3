@@ -14,14 +14,14 @@ const FAQ = () => {
     <main className="w-full max-w-3xl mx-auto px-6 py-16 text-white">
       {/* Title */}
       <h1 className="text-3xl md:text-4xl font-extrabold tracking-widest text-center mb-12">
-        CLEARANCE <span className="text-lime-500">BRIEFING</span> {'// FILE 003'}
+        CLEARANCE <span className="text-[#00ff00]">BRIEFING</span> {'// FILE 003'}
       </h1>
 
       {/* Accordion */}
       <Accordion type="single" collapsible className="space-y-4">
         <AccordionItem
           value="item-1"
-          className="border border-lime-500/40 rounded-lg bg-black/50 backdrop-blur-sm"
+          className="border border-[#00ff00]/40 rounded-lg bg-black/50 backdrop-blur-sm"
         >
           <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
             Who is organizing Midnight Madness?
@@ -42,7 +42,7 @@ const FAQ = () => {
 
         <AccordionItem
           value="item-2"
-          className="border border-lime-500/40 rounded-lg bg-black/50"
+          className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
           <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
             When and where is the event?
@@ -57,7 +57,7 @@ const FAQ = () => {
 
         <AccordionItem
           value="item-3"
-          className="border border-lime-500/40 rounded-lg bg-black/50"
+          className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
           <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
             How do I get access?
@@ -76,7 +76,7 @@ const FAQ = () => {
 
         <AccordionItem
           value="item-4"
-          className="border border-lime-500/40 rounded-lg bg-black/50"
+          className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
           <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
             Is there an age requirement?
@@ -90,7 +90,7 @@ const FAQ = () => {
 
         <AccordionItem
           value="item-5"
-          className="border border-lime-500/40 rounded-lg bg-black/50"
+          className="border border-[#00ff00]/40 rounded-lg bg-black/50"
         >
           <AccordionTrigger className="px-4 text-lime-400 hover:text-lime-300">
             What should I expect?

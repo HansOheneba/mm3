@@ -148,7 +148,7 @@ export default function WaitlistForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-lime-500 text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase"
+              className="w-full bg-[#00ff00] text-black px-4 py-3 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase"
             >
               {loading ? "Processing…" : "Join the Waitlist"}
             </button>
@@ -183,7 +183,7 @@ export default function WaitlistForm() {
 
           <div className="flex justify-center mt-4">
             <Link href={"/"} passHref>
-              <Button className="bg-lime-500 text-black px-4 py-2 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase">
+              <Button className="bg-[#00ff00] text-black px-4 py-2 rounded font-bold tracking-widest shadow hover:bg-lime-400 transition-all uppercase">
                 Acknowledged, Take me home
               </Button>
             </Link>

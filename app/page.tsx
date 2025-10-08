@@ -22,7 +22,7 @@ const Mm3 = () => {
           fadeOut ? "opacity-0" : "opacity-100"
         }`}
       >
-        <h1 className="text-5xl font-extrabold tracking-[0.3em] text-lime-500">
+        <h1 className="text-5xl font-extrabold tracking-[0.3em] text-[#00ff00]">
           M M III
         </h1>
       </div>
@@ -32,7 +32,7 @@ const Mm3 = () => {
   return (
     <main className="w-full max-w-4xl mx-auto px-6 py-16 text-white animate-fade animate-once animate-duration-[800ms] animate-ease-out">
       {/* Heading */}
-      <h1 className="text-4xl font-extrabold text-lime-500 tracking-widest mb-12">
+      <h1 className="text-4xl font-extrabold text-[#00ff00] tracking-widest mb-12">
         MIDNIGHT MADNESS // FILE 003
       </h1>
 
@@ -81,7 +81,7 @@ const Mm3 = () => {
         </p>
         <Link
           href="/waitlist"
-          className="inline-block bg-lime-500 text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-lime-400 transition-all tracking-wide"
+          className="inline-block bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-lime-400 transition-all tracking-wide"
         >
           Request Access — Join Waitlist
         </Link>
