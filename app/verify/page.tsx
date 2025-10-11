@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function VerifyPage() {
+function VerifyPageContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
@@ -41,12 +41,12 @@ export default function VerifyPage() {
 
         if (res.ok && data.success) {
           setStatus("success");
-          setMessage("Payment verified successfully! Thank you for your purchase.");
+          setMessage("Payment verified successfully!");
         } else {
           setStatus("error");
           setMessage(data.error || "Payment verification failed.");
         }
-      } catch{
+      } catch {
         setStatus("error");
         setMessage("Network error during verification.");
       }
@@ -81,5 +81,15 @@ export default function VerifyPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense
+      fallback={<p className="text-white text-center mt-10">Loading...</p>}
+    >
+      <VerifyPageContent />
+    </Suspense>
   );
 }
