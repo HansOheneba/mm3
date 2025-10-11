@@ -118,13 +118,13 @@ export default function TicketsPage() {
           onValueChange={(v) => setTicketType(v)}
           defaultValue={ticketType}
         >
-          <SelectTrigger className="w-full border-[#00ff00]/40 bg-black text-gray-200">
+          <SelectTrigger className="w-full border-[#00ff00]/40 text-gray-200">
             <SelectValue placeholder="Select Ticket Type" />
           </SelectTrigger>
-          <SelectContent className="bg-zinc-900 border border-[#00ff00]/40">
+          <SelectContent className="bg-zinc-900 border border-[#00ff00]/40 text-white">
             <SelectItem value="early_bird">Early Bird — ₵120</SelectItem>
-            <SelectItem value="regular">Regular — ₵150</SelectItem>
-            <SelectItem value="late">Late — ₵200</SelectItem>
+            <SelectItem value="regular" disabled >Regular — ₵150</SelectItem>
+            <SelectItem value="late" disabled >Late — ₵200</SelectItem>
           </SelectContent>
         </Select>
 
