@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-const Mm3 = () => {
+export default function Mm3() {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -11,7 +12,6 @@ const Mm3 = () => {
       setFadeOut(true);
       setTimeout(() => setLoading(false), 800);
     }, 1200);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,64 +30,74 @@ const Mm3 = () => {
   }
 
   return (
-    <main className="w-full max-w-4xl mx-auto px-6 py-16 text-white animate-fade animate-once animate-duration-[800ms] animate-ease-out">
-      {/* Heading */}
-      <h1 className="text-4xl font-extrabold text-[#00ff00] tracking-widest mb-12">
-        MIDNIGHT MADNESS // FILE 003
-      </h1>
+    <main className="min-h-screen bg-black text-white flex flex-col md:flex-row items-center justify-center px-6 py-16 md:py-20 gap-12 md:gap-20">
+      {/* Left Section */}
+      <section className="max-w-lg space-y-10">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-[#00ff00] tracking-widest mb-10">
+          MIDNIGHT MADNESS: THE MELTDOWN
+        </h1>
 
-      {/* Tabular style info */}
-      <div className="space-y-10">
-        <div>
-          <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
-            Location
-          </h2>
-          <p className="text-lg font-mono text-gray-200">[REDACTED]</p>
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
+              Date
+            </h2>
+            <p className="font-mono text-[#00ff00] text-sm tracking-[0.15em]">
+              31.10.25 – x DAYS LEFT
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
+              Location
+            </h2>
+            <p className="font-mono text-gray-300 text-sm">
+              [REDACTED] – DECLASSIFIED SOON
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
+              Entry Protocol
+            </h2>
+            <p className="font-mono text-gray-300 text-sm">
+              Limited Access – Ticket Required
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
+              Ticket Release
+            </h2>
+            <p className="font-mono text-gray-300 text-sm">
+              Early-bird – x Oct 2025
+            </p>
+          </div>
         </div>
 
-        <div>
-          <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
-            Date
-          </h2>
-          <p className="text-lg font-mono text-[#00ff00] tracking-[0.25em]">
-            31 // OCT // 2025
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
-            Entry Protocol
-          </h2>
-          <p className="text-lg font-mono text-gray-200">
-            Restricted Access — Ticket Required
-          </p>
-        </div>
-
-        <div>
-          <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-2">
-            Clearance Level
-          </h2>
-          <p className="text-lg font-mono text-gray-200">
-            Confidential // Tier 3
-          </p>
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="mt-20">
-        <p className="text-gray-400 text-base mb-6">
-          Clearance is limited. Access to the Madness is not guaranteed. Request
-          entry below.
+        <p className="text-[11px] text-gray-500 mt-8 leading-relaxed max-w-sm">
+          Clearance is limited. Access to the Madness is not guaranteed. Join
+          the waitlist below.
         </p>
+
         <Link
           href="/waitlist"
-          className="inline-block bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-md hover:bg-[#00ff00] transition-all tracking-wide"
+          className="inline-block mt-4 bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-[#00ff00]/90 transition-all duration-200 tracking-wide"
         >
-          Request Access — Join Waitlist
+          Limited Slots – Join the Waitlist
         </Link>
-      </div>
+      </section>
+
+      {/* Right Section */}
+      <section className="relative w-full max-w-sm">
+        <Image
+          src="/assets/MMm3FLYER.png"
+          alt="Midnight Madness Flyer"
+          width={500}
+          height={500}
+          className="rounded-md "
+        />
+      </section>
     </main>
   );
-};
-
-export default Mm3;
+}
