@@ -32,11 +32,13 @@ export default function WaitlistForm() {
     try {
       // Use the correct environment variable name from your original setup
       const apiUrl =
-        process.env.NEXT_PUBLIC_WAITLIST_API ||
-        "https://808api.vercel.app/waitlist";
+        process.env.NEXT_PUBLIC_API?.replace(/\/+$/, "") + "/waitlist";
+      if (!apiUrl) {
+        throw new Error("API URL is not defined");
+      }
 
-      console.log("Sending request to:", apiUrl);
-      console.log("Data:", values);
+      // console.log("Sending request to:", apiUrl);
+      // console.log("Data:", values);
 
       const response = await fetch(apiUrl, {
         method: "POST",

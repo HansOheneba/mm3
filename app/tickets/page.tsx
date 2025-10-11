@@ -1,76 +1,222 @@
-// app/tickets/page.tsx
+"use client";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Minus, Plus, Ticket } from "lucide-react";
+
 export default function TicketsPage() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+  const [ticketType, setTicketType] = useState("early_bird");
+  const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const API_BASE = process.env.NEXT_PUBLIC_API!;
+
+  const prices: Record<string, number> = {
+    early_bird: 120,
+    regular: 150,
+    late: 200,
+  };
+
+  async function handleBuy(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    // Prepare the data to be sent
+    const requestData = {
+      email: form.email,
+      name: form.name,
+      phone: form.phone,
+      ticket_type: ticketType,
+      quantity: String(quantity),
+    };
+
+    // Log the data being sent to the API
+    console.log("📤 Data being sent to API:", requestData);
+    console.log("🌐 API Endpoint:", `${API_BASE}/buy-ticket`);
+
+    try {
+      const res = await fetch(`${API_BASE}/buy-ticket`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
+
+      // Log the response status
+      console.log("📥 Response Status:", res.status);
+
+      const data = await res.json();
+
+      // Log the full response from API
+      console.log("📨 Full API Response:", data);
+
+      if (data.success && data.data?.checkout_url) {
+        console.log(
+          "✅ Payment initialized successfully, redirecting to:",
+          data.data.checkout_url
+        );
+        window.location.href = data.data.checkout_url;
+      } else {
+        console.error("❌ API Error:", data.error);
+        setError(data.error || "Payment initialization failed.");
+      }
+    } catch (error) {
+      console.error("🔴 Network Error:", error);
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const total = prices[ticketType] * quantity;
+
   return (
-    <div className="min-h-screen bg-black text-gray-200 px-8 py-16 flex flex-col items-start justify-center relative overflow-hidden max-w-4xl mx-auto">
-      {/* Subtle eerie glow */}
+    <div className="min-h-screen bg-black text-gray-200 px-6 py-20 flex flex-col items-center relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-10 left-0 w-72 h-72 bg-[#00ff00]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-red-900/20 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 w-72 h-72 bg-[#00ff00]/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-red-900/20 rounded-full blur-[120px]" />
       </div>
 
-      {/* Header */}
-      <h1 className="text-4xl md:text-5xl font-bold text-[#00ff00] mb-12 tracking-widest">
-        [ TICKETS : CLASSIFIED ]
+      <h1 className="text-3xl md:text-4xl font-bold text-[#00ff00] mb-6 tracking-widest text-center">
+        [ MIDNIGHT MADNESS III ]
       </h1>
+      <p className="text-gray-400 text-sm uppercase mb-10 tracking-wider text-center">
+        October 31, 2025 — [REDACTED], Accra
+      </p>
 
-      {/* Classified Info Block */}
-      <div className="space-y-8 w-full max-w-3xl">
-        <div className="border-b border-gray-800 pb-6">
-          <h2 className="text-sm text-gray-500 uppercase mb-2">
-            Document Reference
+      <div className="bg-zinc-900/60 border border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] max-w-md w-full space-y-6">
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-[#00ff00] mb-2 tracking-wide">
+            Choose Your Access
           </h2>
-          <p className="text-lg text-gray-300">File #MM-III-███-ACCESS</p>
-        </div>
-
-        <div className="border-b border-gray-800 pb-6">
-          <h2 className="text-sm text-gray-500 uppercase mb-2">
-            Release Window
-          </h2>
-          <p className="text-lg text-gray-300">
-            [REDACTED] — Nightfall Approaches
+          <p className="text-gray-400 text-sm">
+            Each ticket grants one entry. Waitlist users get ₵20 off Early Bird.
           </p>
         </div>
 
-        <div className="border-b border-gray-800 pb-6">
-          <h2 className="text-sm text-gray-500 uppercase mb-2">
-            Clearance Level
-          </h2>
-          <p className="text-lg text-gray-300">
-            Restricted Access —{" "}
-            <span className="text-[#00ff00]">Waitlist Only</span>
-          </p>
-        </div>
-
-        <div className="pb-6">
-          <h2 className="text-sm text-gray-500 uppercase mb-2">
-            Incident Report
-          </h2>
-          <p className="text-gray-400 leading-relaxed">
-            Witnesses describe a night where{" "}
-            <span className="text-[#00ff00]">shadows move on their own</span>,
-            bass shakes the ground, and the boundary between thrill and fear
-            dissolves.
-            <span className="block mt-2 text-[#00ff00] font-semibold">
-              Tickets imminent. Anticipate chaos.
-            </span>
-          </p>
-        </div>
-      </div>
-
-      {/* Call to Action */}
-      <div className="mt-12">
-        <a
-          href="/waitlist"
-          className="inline-block px-8 py-4 border border-[#00ff00] text-[#00ff00] font-bold tracking-wider uppercase hover:bg-[#00ff00] hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(163,230,53,0.6)]"
+        {/* Ticket Selector */}
+        <Select
+          onValueChange={(v) => setTicketType(v)}
+          defaultValue={ticketType}
         >
-          Join the Waitlist
-        </a>
+          <SelectTrigger className="w-full border-[#00ff00]/40 bg-black text-gray-200">
+            <SelectValue placeholder="Select Ticket Type" />
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-900 border border-[#00ff00]/40">
+            <SelectItem value="early_bird">Early Bird — ₵120</SelectItem>
+            <SelectItem value="regular">Regular — ₵150</SelectItem>
+            <SelectItem value="late">Late — ₵200</SelectItem>
+          </SelectContent>
+        </Select>
+
+        {/* Quantity Selector */}
+        <div className="flex items-center justify-between bg-zinc-800 border border-[#00ff00]/20 rounded-lg px-4 py-3">
+          <span className="text-gray-300 text-sm">Quantity</span>
+          <div className="flex items-center space-x-3">
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-[#00ff00] hover:text-black hover:bg-[#00ff00]"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+            >
+              <Minus className="w-4 h-4" />
+            </Button>
+            <span className="text-lg font-bold text-gray-100 w-8 text-center">
+              {quantity}
+            </span>
+            <Button
+              type="button"
+              variant="ghost"
+              className="text-[#00ff00] hover:text-black hover:bg-[#00ff00]"
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              <Plus className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Total */}
+        <div className="flex justify-between items-center pt-2 border-t border-[#00ff00]/20">
+          <p className="text-gray-400 text-sm">Total</p>
+          <p className="text-[#00ff00] text-lg font-semibold">
+            ₵{total.toLocaleString()}
+          </p>
+        </div>
+
+        {/* Proceed */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="w-full bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90 flex items-center justify-center gap-2 mt-2">
+              <Ticket className="w-4 h-4" />
+              {loading ? "Processing..." : "Buy Ticket"}
+            </Button>
+          </DialogTrigger>
+
+          <DialogContent className="bg-zinc-900 border border-[#00ff00]/40 text-gray-200 shadow-[0_0_30px_rgba(0,255,0,0.2)]">
+            <DialogHeader>
+              <DialogTitle className="text-[#00ff00] tracking-wide text-center">
+                ACCESS REQUEST
+              </DialogTitle>
+            </DialogHeader>
+
+            <form onSubmit={handleBuy} className="space-y-4 mt-3">
+              <Input
+                placeholder="Full Name"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
+              <Input
+                type="email"
+                placeholder="Email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+              />
+              <Input
+                type="tel"
+                placeholder="Phone (optional)"
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              />
+
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90"
+              >
+                {loading ? "Connecting..." : "Proceed to Payment"}
+              </Button>
+
+              {error && (
+                <p className="text-red-500 text-sm text-center">{error}</p>
+              )}
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      {/* Footer Notice */}
-      <p className="mt-16 text-xs text-gray-600 italic tracking-wider">
-        NOTICE: Unauthorized access will be logged. Only the brave will make it
-        inside.
+      <p className="mt-16 text-xs text-gray-600 italic tracking-wider text-center">
+        WARNING: Unauthorized entry will be monitored. Proceed... if you dare.
       </p>
     </div>
   );
