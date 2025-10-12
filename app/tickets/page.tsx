@@ -36,56 +36,37 @@ export default function TicketsPage() {
     late: 200,
   };
 
-  async function handleBuy(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+  // const handleBuy = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError("");
+  //   const requestData = {
+  //     email: form.email,
+  //     name: form.name,
+  //     phone: form.phone,
+  //     ticket_type: ticketType,
+  //     quantity: String(quantity),
+  //   };
 
-    // Prepare the data to be sent
-    const requestData = {
-      email: form.email,
-      name: form.name,
-      phone: form.phone,
-      ticket_type: ticketType,
-      quantity: String(quantity),
-    };
+  //   try {
+  //     const res = await fetch(`${API_BASE}/buy-ticket`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(requestData),
+  //     });
 
-    // Log the data being sent to the API
-    console.log("📤 Data being sent to API:", requestData);
-    console.log("🌐 API Endpoint:", `${API_BASE}/buy-ticket`);
-
-    try {
-      const res = await fetch(`${API_BASE}/buy-ticket`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      });
-
-      // Log the response status
-      console.log("📥 Response Status:", res.status);
-
-      const data = await res.json();
-
-      // Log the full response from API
-      console.log("📨 Full API Response:", data);
-
-      if (data.success && data.data?.checkout_url) {
-        console.log(
-          "✅ Payment initialized successfully, redirecting to:",
-          data.data.checkout_url
-        );
-        window.location.href = data.data.checkout_url;
-      } else {
-        console.error("❌ API Error:", data.error);
-        setError(data.error || "Payment initialization failed.");
-      }
-    } catch (error) {
-      console.error("🔴 Network Error:", error);
-      setError("Network error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  //     const data = await res.json();
+  //     if (data.success && data.data?.checkout_url) {
+  //       window.location.href = data.data.checkout_url;
+  //     } else {
+  //       setError(data.error || "Payment initialization failed.");
+  //     }
+  //   } catch {
+  //     setError("Network error. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const total = prices[ticketType] * quantity;
 
@@ -117,37 +98,38 @@ export default function TicketsPage() {
         <Select
           onValueChange={(v) => setTicketType(v)}
           defaultValue={ticketType}
+          disabled
         >
           <SelectTrigger className="w-full border-[#00ff00]/40 text-gray-200">
             <SelectValue placeholder="Select Ticket Type" />
           </SelectTrigger>
           <SelectContent className="bg-zinc-900 border border-[#00ff00]/40 text-white">
             <SelectItem value="early_bird">Early Bird — ₵120</SelectItem>
-            <SelectItem value="regular" disabled >Regular — ₵150</SelectItem>
-            <SelectItem value="late" disabled >Late — ₵200</SelectItem>
+            <SelectItem value="regular">Regular — ₵150</SelectItem>
+            <SelectItem value="late">Late — ₵200</SelectItem>
           </SelectContent>
         </Select>
 
         {/* Quantity Selector */}
-        <div className="flex items-center justify-between bg-zinc-800 border border-[#00ff00]/20 rounded-lg px-4 py-3">
-          <span className="text-gray-300 text-sm">Quantity</span>
+        <div className="flex items-center justify-between bg-zinc-800 border border-[#00ff00]/20 rounded-lg px-4 py-3 opacity-50">
+          <span className="text-gray-400 text-sm">Quantity</span>
           <div className="flex items-center space-x-3">
             <Button
               type="button"
               variant="ghost"
-              className="text-[#00ff00] hover:text-black hover:bg-[#00ff00]"
-              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              disabled
+              className="text-[#00ff00]/40"
             >
               <Minus className="w-4 h-4" />
             </Button>
-            <span className="text-lg font-bold text-gray-100 w-8 text-center">
+            <span className="text-lg font-bold text-gray-400 w-8 text-center">
               {quantity}
             </span>
             <Button
               type="button"
               variant="ghost"
-              className="text-[#00ff00] hover:text-black hover:bg-[#00ff00]"
-              onClick={() => setQuantity(quantity + 1)}
+              disabled
+              className="text-[#00ff00]/40"
             >
               <Plus className="w-4 h-4" />
             </Button>
@@ -162,57 +144,15 @@ export default function TicketsPage() {
           </p>
         </div>
 
-        {/* Proceed */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="w-full bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90 flex items-center justify-center gap-2 mt-2">
-              <Ticket className="w-4 h-4" />
-              {loading ? "Processing..." : "Buy Ticket"}
-            </Button>
-          </DialogTrigger>
-
-          <DialogContent className="bg-zinc-900 border border-[#00ff00]/40 text-gray-200 shadow-[0_0_30px_rgba(0,255,0,0.2)]">
-            <DialogHeader>
-              <DialogTitle className="text-[#00ff00] tracking-wide text-center">
-                ACCESS REQUEST
-              </DialogTitle>
-            </DialogHeader>
-
-            <form onSubmit={handleBuy} className="space-y-4 mt-3">
-              <Input
-                placeholder="Full Name"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
-              <Input
-                type="email"
-                placeholder="Email"
-                required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-              />
-              <Input
-                type="tel"
-                placeholder="Phone (optional)"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              />
-
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90"
-              >
-                {loading ? "Connecting..." : "Proceed to Payment"}
-              </Button>
-
-              {error && (
-                <p className="text-red-500 text-sm text-center">{error}</p>
-              )}
-            </form>
-          </DialogContent>
-        </Dialog>
+        {/* Placeholder CTA */}
+        <div className="text-center mt-4">
+          <p className="text-[#00ff00] font-bold text-lg tracking-wide uppercase">
+            Tickets Will Be Available Soon
+          </p>
+          <p className="text-gray-400 text-sm mt-2">
+            Stay tuned for access release details.
+          </p>
+        </div>
       </div>
 
       <p className="mt-16 text-xs text-gray-600 italic tracking-wider text-center">
