@@ -6,13 +6,36 @@ import Link from "next/link";
 export default function Mm3() {
   const [loading, setLoading] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [daysLeft, setDaysLeft] = useState<number | null>(null);
 
   useEffect(() => {
+    // Intro animation timer
     const timer = setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => setLoading(false), 800);
     }, 1200);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    const targetDate = new Date("2025-10-31T00:00:00");
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = targetDate.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setDaysLeft(0);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      setDaysLeft(days);
+    };
+
+    updateCountdown(); // initial call
+    const interval = setInterval(updateCountdown, 1000 * 60 * 60); // update every hour
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -43,7 +66,12 @@ export default function Mm3() {
               Date
             </h2>
             <p className="font-mono text-[#00ff00] text-sm tracking-[0.15em]">
-              31.10.25 – x DAYS LEFT
+              31.10.25 –{" "}
+              {daysLeft !== null ? (
+                <>{daysLeft > 0 ? `${daysLeft} DAYS LEFT` : "IT’S TIME"}</>
+              ) : (
+                "Loading..."
+              )}
             </p>
           </div>
 

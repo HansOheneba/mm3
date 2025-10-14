@@ -89,9 +89,7 @@ export default function TicketsPage() {
           <h2 className="text-xl font-bold text-[#00ff00] mb-2 tracking-wide">
             Choose Your Access
           </h2>
-          <p className="text-gray-400 text-sm">
-            Each ticket grants one entry. Waitlist users get ₵20 off Early Bird.
-          </p>
+          <p className="text-gray-400 text-sm">Each ticket grants one entry.</p>
         </div>
 
         {/* Ticket Selector */}
@@ -147,10 +145,11 @@ export default function TicketsPage() {
         {/* Placeholder CTA */}
         <div className="text-center mt-4">
           <p className="text-[#00ff00] font-bold text-lg tracking-wide uppercase">
-            Tickets Will Be Available Soon
+            Tickets Will Be Available Soon, Early bird releasing{" "}
+            <strong>17.10.25</strong>
           </p>
           <p className="text-gray-400 text-sm mt-2">
-            Stay tuned for access release details.
+            Stay tuned for more access release details.
           </p>
         </div>
       </div>
