@@ -98,7 +98,7 @@ export default function Mm3() {
               Ticket Release
             </h2>
             <p className="font-mono text-gray-300 text-sm">
-              Early-bird – x Oct 2025
+              Early-bird – 17 Oct 2025
             </p>
           </div>
         </div>
