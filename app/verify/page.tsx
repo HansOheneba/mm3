@@ -41,7 +41,7 @@ function VerifyPageContent() {
 
         if (res.ok && data.success) {
           setStatus("success");
-          setMessage("Payment verified successfully!");
+          setMessage("Payment verified successfully! Check your email for details.");
         } else {
           setStatus("error");
           setMessage(data.error || "Payment verification failed.");
