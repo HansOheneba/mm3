@@ -91,7 +91,7 @@ export default function Mm3() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="brightness-[0.45] contrast-[1.1] hue-rotate-[60deg]"
+                className="brightness-[0.7] contrast-[1.1] hue-rotate-[60deg]"
               ></iframe>
 
               {/* Optional soft overlay for glow depth */}
