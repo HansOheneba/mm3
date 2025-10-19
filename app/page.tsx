@@ -79,9 +79,24 @@ export default function Mm3() {
             <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
               Location
             </h2>
-            <p className="font-mono text-gray-300 text-sm">
-              [REDACTED] – DECLASSIFIED SOON
+            <p className="font-mono text-gray-300 text-sm mb-4">
+              13 Mankata Ave, Ama 4
             </p>
+            <div className="relative w-full h-64 rounded-md overflow-hidden border-2 border-[#00ff00] shadow-[0_0_20px_#00ff00]/70">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.7187292538565!2d-0.1799898!3d5.6084971999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b038263e669%3A0x339b783fad2d5581!2s13%20Mankata%20Ave%2C%20Ama_4!5e0!3m2!1sen!2sgh!4v1760870962166!5m2!1sen!2sgh"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="brightness-[0.45] contrast-[1.1] hue-rotate-[60deg]"
+              ></iframe>
+
+              {/* Optional soft overlay for glow depth */}
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/10 to-transparent"></div>
+            </div>
           </div>
 
           <div>
@@ -104,15 +119,14 @@ export default function Mm3() {
         </div>
 
         <p className="text-[11px] text-gray-500 mt-8 leading-relaxed max-w-sm">
-          Clearance is limited. Access to the Madness is not guaranteed. Join
-          the waitlist below.
+          Clearance is limited. Access to the Madness is not guaranteed. Get your ticket now.
         </p>
 
         <Link
-          href="/waitlist"
+          href="/tickets"
           className="inline-block mt-4 bg-[#00ff00] text-black font-semibold px-6 py-3 rounded-md shadow-lg hover:bg-[#00ff00]/90 transition-all duration-200 tracking-wide"
         >
-          Limited Slots – Join the Waitlist
+          Limited Slots – Get Your Ticket
         </Link>
       </section>
 
@@ -123,7 +137,7 @@ export default function Mm3() {
           alt="Midnight Madness Flyer"
           width={500}
           height={500}
-          className="rounded-md "
+          className="rounded-md"
         />
       </section>
     </main>

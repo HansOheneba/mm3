@@ -17,7 +17,7 @@ import {
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/tickets", label: "Tickets" },
-  { href: "/waitlist", label: "Waitlist" },
+  // { href: "/waitlist", label: "Waitlist" },
   { href: "/faq", label: "FAQs" },
 ];
 
