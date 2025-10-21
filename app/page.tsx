@@ -38,6 +38,40 @@ export default function Mm3() {
     return () => clearInterval(interval);
   }, []);
 
+  function EarlyBirdCountdown() {
+    const targetDate = new Date("2025-10-27T00:00:00");
+    const [timeLeft, setTimeLeft] = React.useState("");
+
+    React.useEffect(() => {
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const diff = targetDate.getTime() - now;
+
+        if (diff <= 0) {
+          setTimeLeft("Early-bird closed — regular pricing applies");
+          clearInterval(timer);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        setTimeLeft(`${days}d ${hours}h ${minutes}m`);
+      }, 1000);
+
+      return () => clearInterval(timer);
+    },);
+
+    return (
+      <p className="font-mono text-gray-300 text-sm">
+        Early-bird ends in <span className="text-[#00ff00]">{timeLeft}</span>
+      </p>
+    );
+  }
+
   if (loading) {
     return (
       <div
@@ -80,7 +114,7 @@ export default function Mm3() {
               Location
             </h2>
             <p className="font-mono text-gray-300 text-sm mb-4">
-              13 Mankata Ave, Ama 4
+              13 Mankata Ave, Airport Residential
             </p>
             <div className="relative w-full h-64 rounded-md overflow-hidden border-2 border-[#00ff00] shadow-[0_0_20px_#00ff00]/70">
               <iframe
@@ -112,14 +146,13 @@ export default function Mm3() {
             <h2 className="text-xs text-gray-500 uppercase tracking-[0.2em] mb-2">
               Ticket Release
             </h2>
-            <p className="font-mono text-gray-300 text-sm">
-              Early-bird – 17 Oct 2025
-            </p>
+            <EarlyBirdCountdown />
           </div>
         </div>
 
         <p className="text-[11px] text-gray-500 mt-8 leading-relaxed max-w-sm">
-          Clearance is limited. Access to the Madness is not guaranteed. Get your ticket now.
+          Clearance is limited. Access to the Madness is not guaranteed. Get
+          your ticket now.
         </p>
 
         <Link
@@ -132,13 +165,15 @@ export default function Mm3() {
 
       {/* Right Section */}
       <section className="relative w-full max-w-sm">
-        <Image
-          src="/assets/MMm3FLYER.png"
-          alt="Midnight Madness Flyer"
-          width={500}
-          height={500}
-          className="rounded-md"
-        />
+        <Link href={"https://www.instagram.com/808dtp/"} target="_blank">
+          <Image
+            src="/assets/MMm3FLYER.png"
+            alt="Midnight Madness Flyer"
+            width={500}
+            height={500}
+            className="rounded-md"
+          />
+        </Link>
       </section>
     </main>
   );
