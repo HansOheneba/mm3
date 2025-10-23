@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Courier_Prime } from "next/font/google";
+import { Sofia_Sans_Condensed, Saira_Extra_Condensed } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 
-const courierPrime = Courier_Prime({
-  variable: "--font-courier-prime",
+const sofiaSans = Sofia_Sans_Condensed({
+  variable: "--font-sofia-sans",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const sairaExtraCondensed = Saira_Extra_Condensed({
+  variable: "--font-saira-extra-condensed",
   subsets: ["latin"],
   weight: ["400", "700"],
 });
@@ -13,7 +19,6 @@ export const metadata: Metadata = {
   title: "Midnight Madness | 808",
   description:
     "Midnight Madness is Ghana’s biggest Halloween party, happening in Accra with thrilling costumes, top DJs, live performances, and nonstop nightlife energy. Don’t miss the ultimate Halloween experience in West Africa.",
-
   icons: [
     { rel: "icon", url: "/favicon.ico" },
     {
@@ -51,13 +56,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${sofiaSans.variable} ${sairaExtraCondensed.variable}`}
+    >
       <body
-        className={`${courierPrime.variable} antialiased`}
-        style={{ fontFamily: "var(--font-courier-prime)", backgroundColor: "#000" }}
-        
+        className="antialiased text-white bg-black font-sans"
+        style={{
+          fontFamily: "var(--font-sofia-sans)",
+        }}
       >
-        < Header />
+        <Header />
         {children}
       </body>
     </html>

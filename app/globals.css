@@ -85,6 +85,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+    --font-body: var(--font-sofia-sans);
+  --font-heading: var(--font-saira-extra-condensed);
 }
 
 .dark {
@@ -128,4 +130,14 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Apply Saira Extra Condensed for headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), sans-serif;
+  letter-spacing: 0.02em;
 }
