@@ -25,8 +25,8 @@ export default function TicketStep({
   };
 
   return (
-    <div className="bg-zinc-900/60 border border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] space-y-6">
-      <h2 className="text-xl font-bold text-[#00ff00]">🎟 Choose Tickets</h2>
+    <div className=" border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] space-y-6">
+      <h2 className="text-xl font-bold text-[#00ff00]">Choose Tickets</h2>
       <p className="text-gray-400 text-sm">
         Select your preferred access tier.
       </p>

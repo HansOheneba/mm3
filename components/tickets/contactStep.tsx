@@ -42,9 +42,9 @@ export default function ContactStep({
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-zinc-900/60 border border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] space-y-4"
+      className=" border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] space-y-4"
     >
-      <h2 className="text-xl font-bold text-[#00ff00]">👤 Contact Info</h2>
+      <h2 className="text-xl font-bold text-[#00ff00]">Contact Info</h2>
       <p className="text-gray-400 text-sm">Enter your details to continue.</p>
 
       <Input

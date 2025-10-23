@@ -14,7 +14,7 @@ export default function SummaryPanel({ ticketType, quantity }: Props) {
   const total = ticketType ? prices[ticketType] * quantity : 0;
 
   return (
-    <div className="bg-zinc-900/60 border border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)]">
+    <div className=" border border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)]">
       <h3 className="text-xl font-bold text-[#00ff00] mb-4">Summary</h3>
 
       {ticketType ? (
