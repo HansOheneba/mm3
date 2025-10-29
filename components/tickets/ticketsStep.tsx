@@ -41,17 +41,17 @@ export default function TicketStep({
       <div className="space-y-4">
         {Object.entries(prices).map(([key, price]) => {
           const ticketKey = key as "early_bird" | "regular" | "late";
-          const isEarlyBird = ticketKey === "early_bird";
+          const isRegular = ticketKey === "regular";
           const isSelected = ticketType === ticketKey;
 
           return (
             <div
               key={key}
-              onClick={() => isEarlyBird && handleTicketSelect(ticketKey)}
+              onClick={() => isRegular && handleTicketSelect(ticketKey)}
               className={`p-4 rounded-xl border cursor-pointer transition-all ${
                 isSelected
                   ? "border-[#00ff00] bg-[#00ff00]/10"
-                  : isEarlyBird
+                  : isRegular
                   ? "border-[#00ff00]/20 hover:border-[#00ff00]/40"
                   : "border-gray-600 bg-gray-800/50 cursor-not-allowed opacity-50"
               }`}
@@ -60,7 +60,12 @@ export default function TicketStep({
                 <div>
                   <h3 className="text-lg font-semibold capitalize">
                     {key.replace("_", " ")}
-                    {!isEarlyBird && (
+                    {ticketKey === "early_bird" && (
+                      <span className="ml-2 text-xs text-red-400">
+                        (Sold Out)
+                      </span>
+                    )}
+                    {ticketKey === "late" && (
                       <span className="ml-2 text-xs text-gray-400">
                         (Coming Soon)
                       </span>
@@ -68,7 +73,7 @@ export default function TicketStep({
                   </h3>
                   <p className="text-gray-400 text-sm">₵{price}</p>
                 </div>
-                {isSelected && isEarlyBird && (
+                {isSelected && isRegular && (
                   <div className="flex items-center space-x-3">
                     <Button
                       type="button"
@@ -114,8 +119,7 @@ export default function TicketStep({
       {/* Info message */}
       <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-3">
         <p className="text-blue-300 text-sm text-center">
-          🕯 The gates creak open only for the Early Birds... the rest must wait
-          in the shadows.
+          🎫 Regular tickets are now available! Early Bird has flown away...
         </p>
       </div>
     </div>

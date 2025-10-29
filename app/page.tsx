@@ -102,7 +102,7 @@ export default function Mm3() {
             <p className="font-mono text-[#00ff00] text-sm tracking-[0.15em]">
               31.10.25 –{" "}
               {daysLeft !== null ? (
-                <>{daysLeft > 0 ? `${daysLeft} DAYS LEFT` : "IT’S TIME"}</>
+                <>{daysLeft > 0 ? `${daysLeft+1} DAYS LEFT` : "IT’S TIME"}</>
               ) : (
                 "Loading..."
               )}
