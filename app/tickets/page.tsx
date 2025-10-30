@@ -91,23 +91,19 @@ export default function TicketsPage() {
           {/* Notice section */}
           <div
             onClick={copyNumber}
-            className="mt-10 cursor-pointer select-none p-4 border border-green-700/50 bg-green-800/30 rounded-xl text-sm text-green-300 transition hover:bg-green-800/50 relative"
+            className="mt-10 cursor-pointer select-none p-4 border border-green-700/50 bg-green-900/30 rounded-xl text-sm text-green-300 transition hover:bg-green-900/50 relative"
           >
-            <p className="font-semibold text-green-400 mb-1">
-              ⚠️ Important Notice
-            </p>
+            <p className="font-semibold text-green-400 mb-1">📞 Need Help?</p>
             <p>
-              The website is currently being overwhelmed with traffic. If you face any issues completing your purchase, send a{" "}
-              <span className="font-semibold text-green-400">MoMo payment</span>{" "}
-              to{" "}
-              <span className="font-semibold text-white underline">
-                0593415574
-              </span>{" "}
-              (Account Name:{" "}
-              <span className="font-semibold text-white">Theodore Beecham</span>
-              ) with your{" "}
-              <span className="font-semibold text-white">email</span> as
-              reference. Tap to copy the number.
+              If you experience any issues while purchasing tickets,{" "}
+              <a
+                href="tel:0555301122"
+                className="font-semibold text-green-400 underline hover:text-green-300 hover:underline decoration-dotted transition"
+                onClick={(e) => e.stopPropagation()}
+              >
+                tap here to call <span className="text-white">0555301122</span>
+              </a>
+              . Our support team will assist you right away.
             </p>
 
             {/* Copy feedback */}
@@ -119,7 +115,7 @@ export default function TicketsPage() {
                   exit={{ opacity: 0, y: 10 }}
                   className="absolute bottom-[-40px] left-1/2 -translate-x-1/2 bg-green-700 text-white text-xs px-3 py-1 rounded-md"
                 >
-                  ✅ Copied to clipboard
+                  ✅ Number copied to clipboard
                 </motion.div>
               )}
             </AnimatePresence>
