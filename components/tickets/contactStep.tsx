@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface Props {
   formData: { name: string; email: string; phone: string };
@@ -18,6 +18,29 @@ interface Props {
   finalPrice: number;
 }
 
+// Define Paystack transaction interface
+interface PaystackTransaction {
+  reference: string;
+  trans: string;
+  status: string;
+  message: string;
+  transaction: string;
+  trxref: string;
+  amount: number;
+  currency: string;
+}
+
+// Define Paystack Popup interface
+interface PaystackPopup {
+  resumeTransaction: (
+    accessCode: string,
+    options?: {
+      onSuccess?: (transaction: PaystackTransaction) => void;
+      onCancel?: () => void;
+    }
+  ) => void;
+}
+
 export default function ContactStep({
   formData,
   setFormData,
@@ -32,6 +55,8 @@ export default function ContactStep({
   const API_BASE = process.env.NEXT_PUBLIC_API!;
   const [validatingPromo, setValidatingPromo] = useState(false);
   const [promoError, setPromoError] = useState<string | null>(null);
+  const [processingPayment, setProcessingPayment] = useState(false);
+  const paystackRef = useRef<PaystackPopup | null>(null);
 
   const validatePromoCode = async () => {
     if (!promoCode.trim()) {
@@ -73,29 +98,71 @@ export default function ContactStep({
     }
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-   e.preventDefault();
+  const initializePaystack = async (): Promise<PaystackPopup> => {
+    if (paystackRef.current) {
+      return paystackRef.current;
+    }
 
-   const res = await fetch(`${API_BASE}/buy-ticket`, {
-     method: "POST",
-     headers: { "Content-Type": "application/json" },
-     body: JSON.stringify({
-       email: formData.email,
-       name: formData.name,
-       phone: formData.phone,
-       ticket_type: ticketType,
-       quantity: quantity,
-       promo_code: promoCode || undefined,
-     }),
-   });
+    // Dynamically import Paystack only on client side
+    const PaystackPopModule = await import("@paystack/inline-js");
+    const PaystackPop = PaystackPopModule.default;
+    paystackRef.current = new PaystackPop() as PaystackPopup;
+    return paystackRef.current;
+  };
 
-   const data = await res.json();
-   if (data.success && data.data?.checkout_url) {
-     window.location.href = data.data.checkout_url;
-   } else {
-     alert(data.error || "Failed to process payment");
-   }
- };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProcessingPayment(true);
+
+    try {
+      // First, get the access_code from your backend
+      const res = await fetch(`${API_BASE}/buy-ticket`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          name: formData.name,
+          phone: formData.phone,
+          ticket_type: ticketType,
+          quantity: quantity,
+          promo_code: promoCode || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success && data.data?.access_code) {
+        // Initialize Paystack popup
+        const paystack = await initializePaystack();
+
+        paystack.resumeTransaction(data.data.access_code, {
+          onSuccess: (transaction: PaystackTransaction) => {
+            console.log("Payment successful:", transaction);
+
+            // Redirect to verify page with the reference
+            if (transaction.reference) {
+              window.location.href = `/verify?trxref=${transaction.reference}&reference=${transaction.reference}`;
+            } else {
+              // Fallback: use the reference from our backend
+              window.location.href = `/verify?trxref=${data.data.reference}&reference=${data.data.reference}`;
+            }
+          },
+          onCancel: () => {
+            console.log("Payment cancelled by user");
+            setProcessingPayment(false);
+            alert("Payment was cancelled. You can try again anytime.");
+          },
+        });
+      } else {
+        alert(data.error || "Failed to initialize payment");
+        setProcessingPayment(false);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      alert("An error occurred while processing your payment");
+      setProcessingPayment(false);
+    }
+  };
 
   return (
     <form
@@ -140,7 +207,7 @@ export default function ContactStep({
               // Clear error when user types
               if (promoError) setPromoError(null);
             }}
-            onBlur={validatePromoCode} // Validate when user leaves the field
+            onBlur={validatePromoCode}
             className="bg-zinc-800 border-[#00ff00]/30 text-gray-100 flex-1"
           />
           <Button
@@ -171,9 +238,10 @@ export default function ContactStep({
         </Button>
         <Button
           type="submit"
+          disabled={processingPayment}
           className="bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90"
         >
-          Proceed to Payment
+          {processingPayment ? "Processing..." : "Proceed to Payment"}
         </Button>
       </div>
     </form>
