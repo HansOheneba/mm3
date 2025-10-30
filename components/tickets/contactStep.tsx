@@ -35,12 +35,38 @@ interface PaystackPopupOptions {
   onClose?: () => void;
 }
 
+interface PaystackNewTransactionOptions {
+  key: string;
+  email: string;
+  amount: number;
+  ref?: string;
+  currency?: string;
+  callback?: (response: PaystackTransactionResponse) => void;
+  onClose?: () => void;
+  metadata?: Record<string, string | number>;
+  channels?: string[];
+  plan?: string;
+  quantity?: number;
+  subaccount?: string;
+  transaction_charge?: number;
+  bearer?: string;
+}
+
+interface PaystackTransactionResponse {
+  reference: string;
+  status: "success" | "failed";
+  trans: string;
+  transaction: string;
+  trxref: string;
+  message?: string;
+}
+
 interface PaystackPopupInstance {
   resumeTransaction: (
     accessCode: string,
     options?: PaystackPopupOptions
   ) => void;
-  newTransaction: (options: any) => void; // Paystack doesn't expose proper types for this
+  newTransaction: (options: PaystackNewTransactionOptions) => void;
 }
 
 export default function ContactStep({
