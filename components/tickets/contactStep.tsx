@@ -18,7 +18,6 @@ interface Props {
   finalPrice: number;
 }
 
-// Define Paystack transaction interface
 interface PaystackTransaction {
   reference: string;
   trans: string;
@@ -30,15 +29,18 @@ interface PaystackTransaction {
   currency: string;
 }
 
-// Define Paystack Popup interface
-interface PaystackPopup {
+interface PaystackPopupOptions {
+  onSuccess?: (transaction: PaystackTransaction) => void;
+  onCancel?: () => void;
+  onClose?: () => void;
+}
+
+interface PaystackPopupInstance {
   resumeTransaction: (
     accessCode: string,
-    options?: {
-      onSuccess?: (transaction: PaystackTransaction) => void;
-      onCancel?: () => void;
-    }
+    options?: PaystackPopupOptions
   ) => void;
+  newTransaction: (options: any) => void; // Paystack doesn't expose proper types for this
 }
 
 export default function ContactStep({
@@ -56,7 +58,7 @@ export default function ContactStep({
   const [validatingPromo, setValidatingPromo] = useState(false);
   const [promoError, setPromoError] = useState<string | null>(null);
   const [processingPayment, setProcessingPayment] = useState(false);
-  const paystackRef = useRef<PaystackPopup | null>(null);
+  const paystackRef = useRef<PaystackPopupInstance | null>(null);
 
   const validatePromoCode = async () => {
     if (!promoCode.trim()) {
@@ -98,7 +100,7 @@ export default function ContactStep({
     }
   };
 
-  const initializePaystack = async (): Promise<PaystackPopup> => {
+  const initializePaystack = async (): Promise<PaystackPopupInstance> => {
     if (paystackRef.current) {
       return paystackRef.current;
     }
@@ -106,7 +108,7 @@ export default function ContactStep({
     // Dynamically import Paystack only on client side
     const PaystackPopModule = await import("@paystack/inline-js");
     const PaystackPop = PaystackPopModule.default;
-    paystackRef.current = new PaystackPop() as PaystackPopup;
+    paystackRef.current = new PaystackPop() as PaystackPopupInstance;
     return paystackRef.current;
   };
 
@@ -135,7 +137,7 @@ export default function ContactStep({
         // Initialize Paystack popup
         const paystack = await initializePaystack();
 
-        paystack.resumeTransaction(data.data.access_code, {
+        const popupOptions: PaystackPopupOptions = {
           onSuccess: (transaction: PaystackTransaction) => {
             console.log("Payment successful:", transaction);
 
@@ -152,7 +154,9 @@ export default function ContactStep({
             setProcessingPayment(false);
             alert("Payment was cancelled. You can try again anytime.");
           },
-        });
+        };
+
+        paystack.resumeTransaction(data.data.access_code, popupOptions);
       } else {
         alert(data.error || "Failed to initialize payment");
         setProcessingPayment(false);
