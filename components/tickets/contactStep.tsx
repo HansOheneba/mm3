@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 interface Props {
   formData: { name: string; email: string; phone: string };
@@ -18,57 +18,6 @@ interface Props {
   finalPrice: number;
 }
 
-interface PaystackTransaction {
-  reference: string;
-  trans: string;
-  status: string;
-  message: string;
-  transaction: string;
-  trxref: string;
-  amount: number;
-  currency: string;
-}
-
-interface PaystackPopupOptions {
-  onSuccess?: (transaction: PaystackTransaction) => void;
-  onCancel?: () => void;
-  onClose?: () => void;
-}
-
-interface PaystackNewTransactionOptions {
-  key: string;
-  email: string;
-  amount: number;
-  ref?: string;
-  currency?: string;
-  callback?: (response: PaystackTransactionResponse) => void;
-  onClose?: () => void;
-  metadata?: Record<string, string | number>;
-  channels?: string[];
-  plan?: string;
-  quantity?: number;
-  subaccount?: string;
-  transaction_charge?: number;
-  bearer?: string;
-}
-
-interface PaystackTransactionResponse {
-  reference: string;
-  status: "success" | "failed";
-  trans: string;
-  transaction: string;
-  trxref: string;
-  message?: string;
-}
-
-interface PaystackPopupInstance {
-  resumeTransaction: (
-    accessCode: string,
-    options?: PaystackPopupOptions
-  ) => void;
-  newTransaction: (options: PaystackNewTransactionOptions) => void;
-}
-
 export default function ContactStep({
   formData,
   setFormData,
@@ -79,12 +28,14 @@ export default function ContactStep({
   setPromoCode,
   discountAmount,
   setDiscountAmount,
+  finalPrice,
 }: Props) {
   const API_BASE = process.env.NEXT_PUBLIC_API!;
   const [validatingPromo, setValidatingPromo] = useState(false);
   const [promoError, setPromoError] = useState<string | null>(null);
   const [processingPayment, setProcessingPayment] = useState(false);
-  const paystackRef = useRef<PaystackPopupInstance | null>(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [referenceCode, setReferenceCode] = useState<string>("");
 
   const validatePromoCode = async () => {
     if (!promoCode.trim()) {
@@ -126,25 +77,12 @@ export default function ContactStep({
     }
   };
 
-  const initializePaystack = async (): Promise<PaystackPopupInstance> => {
-    if (paystackRef.current) {
-      return paystackRef.current;
-    }
-
-    // Dynamically import Paystack only on client side
-    const PaystackPopModule = await import("@paystack/inline-js");
-    const PaystackPop = PaystackPopModule.default;
-    paystackRef.current = new PaystackPop() as PaystackPopupInstance;
-    return paystackRef.current;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setProcessingPayment(true);
 
     try {
-      // First, get the access_code from your backend
-      const res = await fetch(`${API_BASE}/buy-ticket`, {
+      const res = await fetch(`${API_BASE}/buy-ticket-manual`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -159,40 +97,122 @@ export default function ContactStep({
 
       const data = await res.json();
 
-      if (data.success && data.data?.access_code) {
-        // Initialize Paystack popup
-        const paystack = await initializePaystack();
-
-        const popupOptions: PaystackPopupOptions = {
-          onSuccess: (transaction: PaystackTransaction) => {
-            console.log("Payment successful:", transaction);
-
-            // Redirect to verify page with the reference
-            if (transaction.reference) {
-              window.location.href = `/verify?trxref=${transaction.reference}&reference=${transaction.reference}`;
-            } else {
-              // Fallback: use the reference from our backend
-              window.location.href = `/verify?trxref=${data.data.reference}&reference=${data.data.reference}`;
-            }
-          },
-          onCancel: () => {
-            console.log("Payment cancelled by user");
-            setProcessingPayment(false);
-            alert("Payment was cancelled. You can try again anytime.");
-          },
-        };
-
-        paystack.resumeTransaction(data.data.access_code, popupOptions);
+      if (data.success) {
+        setReferenceCode(data.data.reference_code);
+        setPaymentSuccess(true);
       } else {
-        alert(data.error || "Failed to initialize payment");
-        setProcessingPayment(false);
+        alert(data.error || "Failed to create payment");
       }
     } catch (error) {
       console.error("Payment error:", error);
       alert("An error occurred while processing your payment");
+    } finally {
       setProcessingPayment(false);
     }
   };
+
+  const copyReferenceCode = async () => {
+    await navigator.clipboard.writeText(referenceCode);
+    alert("Reference code copied to clipboard!");
+  };
+
+  const copyMomoNumber = async () => {
+    await navigator.clipboard.writeText("0593415574");
+    alert("MoMo number copied to clipboard!");
+  };
+
+  if (paymentSuccess) {
+    return (
+      <div className="border-[#00ff00]/30 rounded-2xl p-6 shadow-[0_0_40px_rgba(0,255,0,0.1)] space-y-6">
+        <h2 className="text-xl font-bold text-[#00ff00]">
+          Payment Instructions
+        </h2>
+
+        <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+          <p className="text-green-300 text-sm mb-3">
+            ✅ Your payment request has been created! Follow these steps:
+          </p>
+
+          <div className="space-y-3 text-sm">
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 font-bold">1.</span>
+              <p className="text-gray-200">
+                Send <strong>₵{finalPrice.toLocaleString()}</strong> to:
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 ml-4">
+              <code className="bg-black/50 px-3 py-2 rounded text-green-400 font-mono text-lg">
+                0593415574
+              </code>
+              <Button
+                type="button"
+                onClick={copyMomoNumber}
+                className="bg-[#00ff00] text-black text-xs font-bold hover:bg-[#00ff00]/90"
+                size="sm"
+              >
+                Copy
+              </Button>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 font-bold">2.</span>
+              <p className="text-gray-200">
+                <strong>(Very Important)</strong> Use this code as your
+                reference:
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 ml-4">
+              <code className="bg-black/50 px-3 py-2 rounded text-green-400 font-mono text-lg">
+                {referenceCode}
+              </code>
+              <Button
+                type="button"
+                onClick={copyReferenceCode}
+                className="bg-[#00ff00] text-black text-xs font-bold hover:bg-[#00ff00]/90"
+                size="sm"
+              >
+                Copy
+              </Button>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-green-400 font-bold">3.</span>
+              <p className="text-gray-200">
+                After payment, your ticket will be verified and sent to you
+                shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-3">
+          <p className="text-blue-300 text-sm">
+            📞 Need help? Call <strong>0555301122</strong> for support
+          </p>
+        </div>
+
+        <div className="flex justify-between pt-3">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={onBack}
+            className="text-[#00ff00]"
+          >
+            ← Back to Tickets
+          </Button>
+          <Button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="bg-[#00ff00] text-black font-bold hover:bg-[#00ff00]/90"
+          >
+            Buy Another Ticket
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form
