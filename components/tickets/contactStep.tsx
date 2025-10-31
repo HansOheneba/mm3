@@ -143,7 +143,7 @@ export default function ContactStep({
 
             <div className="flex items-center gap-2 ml-4">
               <code className="bg-black/50 px-3 py-2 rounded text-green-400 font-mono text-lg">
-                0592076527
+                0594020071
               </code>
               <Button
                 type="button"
